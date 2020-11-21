@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1> Instructions </h1>
+<p>As a participant of this study, you will teach the computer agent to complete the Mountain Car task. </p>
+<p>Specifically, the agent is a car that can choose to accelerate left, right, or not at all. </p>
+<p> The goal is for the car to get to the flag (a marker on the top of the right hill) as quickly as possible.</p>
+<p><b>Your job will be to teach the agent to perform this task. You will give the agent positive and negative rewards, similar to teaching a dog a new trick. </b> </p>
+<p>The rewards you give to the agent will shape the agent’s behavior.</p>
+<p>Your job will be to train the agent to reach the flag as fast as possible.</p>
+<p>You will train the agent for 20 episodes.</h1>
+<p>However, you will be allocated<b> a budget of rewards</b> you can provide the agent.</p>
+<p> <b>Once you have used up the entire budget, you can no longer teach the agent.</b> </p>
+<p>You will have one practice trial, where you can get familiar with how to teach the agent.</p>
+
+</body>
+</html>
