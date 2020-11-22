@@ -34,6 +34,7 @@ class Trial():
         self.reward = 'None'
         self.budget_total = 40
         self.budget_used = 0
+        self.budget_used_0 = 0
         self.start()
         self.run()
 
@@ -72,6 +73,11 @@ class Trial():
         self.create_file.
         '''
         if self.check_trial_done():
+            if self.outfile:
+                self.outfile.close()
+                if self.config.get('s3upload'):
+                    self.pipe.send({'upload':{'projectId':self.projectId ,'userId':self.userId,'file':self.filename,'path':self.path, 'bucket': self.config.get('bucket')}})
+            
             self.end()
         else:
             agent.reset(self.trial)
@@ -80,6 +86,7 @@ class Trial():
                 if self.config.get('s3upload'):
                     self.pipe.send({'upload':{'projectId':self.projectId ,'userId':self.userId,'file':self.filename,'path':self.path, 'bucket': self.config.get('bucket')}})
             self.create_file()
+            self.budget_used_0 = self.budget_used
             self.episode += 1
 
     def check_trial_done(self):
@@ -263,14 +270,20 @@ class Trial():
             self.humanAction = 0
             self.actionBuffer = 0
         envState = agent.step(self.trial, self.reward)
-        
-        #self.update_entry(envState)   # comment to save data only at end of episode
-        #self.save_entry()
         self.actionBuffer +=1
-        if envState['done']:
+        if envState['updated']:  # was 'done'
+            update_dict = {'w'+str(self.budget_used):envState['w']}
+            self.update_entry(update_dict)  # uncomment to save data only at end of episode
+            
+        if envState['done']:  
+            update_dict = {'w'+str(self.budget_used):envState['w']}
+            update_dict.update({'dR':self.budget_used-self.budget_used_0})
+            update_dict.update({'steps':envState['step']})
             self.reset()
-            self.update_entry(envState)  # uncomment to save data only at end of episode
+            self.update_entry(update_dict)  # uncomment to save data only at end of episode
             self.save_entry()
+        
+
 
     def save_entry(self):
         '''

@@ -144,7 +144,7 @@ class CoachAgent:
         self.epsilon = 0.1
         self.gamma = 0 # this is discount
         self.trace_decay = 0.9 # trace decay parameter (lambda in COACH paper)
-        self.x = 0.3 # was 0.12, 0.2
+        self.x = 0.2 # was 0.12, 0.2
         self.alpha =self.x/self.num_tilings  #this is step size
         self.initial_weights =  0.0
         self.num_actions = 3
@@ -273,7 +273,7 @@ class CoachAgent:
         
         preferences = self.calculate_action_preferences(expr[1])
         
-        #softmax_prob = np.exp(action_preferences)/np.sum(np.exp(action_preferences))
+        
         c = np.max(preferences)
         numerator = np.exp(preferences - c)
         denominator = np.sum(numerator)
@@ -333,12 +333,13 @@ def step(env, reward:str):
     myagent.last_action= myagent.current_action
     myagent.previous_tiles= myagent.current_tiles
     
+    if reward != 'None':
+        updated = True
+    else:
+        updated = False
+    
     state, _ , done, info = env.step(myagent.current_action)
-    #envState = {'observation': state, 'done': done, 'action': myagent.current_action, 'policy': myagent.softmax_prob}
-    envState = {'observation': state, 'done': 0, 'action': myagent.current_action, 'policy': myagent.softmax_prob,'reward':reward, 'w':myagent.w}
-    #envState = {'observation': state, 'done': 0, 'action': myagent.current_action, 'timestep':myagent.time_step, 'timestamp':myagent.timestamp, 'experiences':myagent.experiences, 'w':myagent.w, 'trace':myagent.trace, 'reward':reward}
-    # if done:
-
+    envState = {'done': 0,' reward': reward, 'updated': updated,'w': myagent.w, 'step': myagent.time_step}
     if state[0] >= .5 or myagent.time_step >= 500:
         envState['done']= True
         return envState
@@ -393,6 +394,7 @@ def close(env):
         No Return
         '''
     env.close()
+
 
 
 
