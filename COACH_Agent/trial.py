@@ -72,8 +72,10 @@ class Trial():
         comment the 3 lines below contianing self.outfile and 
         self.create_file.
         '''
+        
         if self.check_trial_done():
             if self.outfile:
+                self.save_entry()
                 self.outfile.close()
                 if self.config.get('s3upload'):
                     self.pipe.send({'upload':{'projectId':self.projectId ,'userId':self.userId,'file':self.filename,'path':self.path, 'bucket': self.config.get('bucket')}})
@@ -82,6 +84,7 @@ class Trial():
         else:
             agent.reset(self.trial)
             if self.outfile:
+                self.save_entry()
                 self.outfile.close()
                 if self.config.get('s3upload'):
                     self.pipe.send({'upload':{'projectId':self.projectId ,'userId':self.userId,'file':self.filename,'path':self.path, 'bucket': self.config.get('bucket')}})
@@ -280,7 +283,7 @@ class Trial():
             update_dict.update({'dR':self.budget_used-self.budget_used_0})
             update_dict.update({'steps':envState['step']})
             self.update_entry(update_dict)  # uncomment to save data only at end of episode
-            self.save_entry()
+            
             self.reset()
         
 
