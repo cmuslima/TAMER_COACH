@@ -32,7 +32,7 @@ class Trial():
         self.filename = None
         self.path = None
         self.reward = 'None'
-        self.budget_total = 40
+        self.budget_total = 60
         self.budget_used = 0
         self.budget_used_0 = 0
         self.start()
@@ -279,9 +279,9 @@ class Trial():
             update_dict = {'w'+str(self.budget_used):envState['w']}
             update_dict.update({'dR':self.budget_used-self.budget_used_0})
             update_dict.update({'steps':envState['step']})
-            self.reset()
             self.update_entry(update_dict)  # uncomment to save data only at end of episode
             self.save_entry()
+            self.reset()
         
 
 
