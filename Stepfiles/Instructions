@@ -8,11 +8,14 @@
 <p style="font-size:20px;">The goal is for the car to get to the flag (a marker on the top of the right hill) as quickly as possible.<p/>
 <p style="font-size:20px;"><b>Your job will be to teach the agent to perform this task. You will give the agent positive and negative rewards, similar to teaching a dog a new trick. </b><p/> 
 <p style="font-size:20px;">The rewards you give to the agent will shape the agent’s behavior.<p/>
+<p style="font-size:20px;">Positive rewards indicate good behavior, i.e behavior that will help the agent reach the flag. <p/> 
+<p style="font-size:20px;">Negative rewards indicate bad behavior, i.e behavior that will not help the agent reach the flag. <p/> 
 <p style="font-size:20px;">Your job will be to train the agent to reach the flag as fast as possible. </p>
-<p style="font-size:20px;">You will train the agent for <b>20 episodes<b/>.<p/>
+<p style="font-size:20px;">You will train the agent for <b>20 episodes<b/>. <p/>
 <p style="font-size:20px;">However, you will be allocated<b> a budget of rewards</b> you can provide the agent.<p/>
+<p style="font-size:20px;">Continue providing feedback until you think the agent has learned the task or until you run out of rewards.<p/>
 <p style="font-size:20px;"><b>Once you have used up the entire budget, you can no longer teach the agent<b/>.<p/>
-<p style="font-size:20px;">You will have one practice trial, where you can get familiar with how to teach the agent.</p>
+<p style="font-size:20px;">You will have three practice trials, where you can get familiar with how to teach the agent.</p>
 
 </body>
 </html>
