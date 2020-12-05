@@ -74,4 +74,10 @@ for p in range(len(person_data)):
     plt.xlabel('Episode Number')
     plt.ylabel('Average Steps')
     plt.show()
+    
+    plt.plot(np.sort(person_budget_data[p]))
+    plt.title('Cumulative Feedback during Trial - Participant ' + str(p))
+    plt.xlabel('Episode Number')
+    plt.ylabel('Average Cumulative Feedback')
+    plt.show()
 
